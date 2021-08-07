@@ -8,20 +8,12 @@ def read_movie_descrition(): Unit = {
   val movie_names_file = "MovieSummaries/movie.metadata.tsv"
   val source = Source.fromFile(movie_names_file)
   val namesTable: Map[String, String] =
-    source.getLines().map {
-      _.split("\t")
-        .zipWithIndex
-        .filter {
-          _ match {
-            case (_, 0) | (_, 2) => true
-            case _ => false
-          }
-        }.map(_._1)
-    }.collect { case Array(movieCode: String, movieName: String) => (movieCode, movieName)}
-     .toMap
-
+    source.getLines()
+      .map(_.split("\t"))
+      .collect{ case line => (line(0), line(2))}
+      .toMap
 }
 
 object BooleanRetrieval extends App {
-  read_movie_descrition()
+//  print(read_movie_descrition())
 }
