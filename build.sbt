@@ -6,8 +6,6 @@ scalaVersion := "3.0.1"
 
 idePackagePrefix := Some("org.information_retrieval.boolean_retrieval")
 
-libraryDependencies += "org.apache.spark" % "spark-core_2.12" % "3.1.2"
-
 //lazy val downloadFromZip = taskKey[Unit]("Download data and extract it")
 //downloadFromZip := {
 //  if (java.nio.file.Files.notExists(new File("data").toPath)) {
