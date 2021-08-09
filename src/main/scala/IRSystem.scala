@@ -3,8 +3,7 @@ package org.information_retrieval.boolean_retrieval
 class IRSystem(corpus: LazyList[Movie], invertedIndex: InvertedIndex) {
   def answerQuery(words: Array[String]): Array[Movie] = {
     words.map(invertedIndex.get compose normaliseText)
-      .withFilter(_.isDefined)
-      .map(_.get.postingList)
+      .collect { case Some(term) => term.postingList }
       .reduce((firstPostingList, secondPostingList) => firstPostingList.intersection(secondPostingList))
       .getFromCorpus(corpus)
   }
