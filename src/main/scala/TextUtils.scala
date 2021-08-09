@@ -1,7 +1,7 @@
 package org.information_retrieval.boolean_retrieval
 
 
-object Utils {
+package object TextUtils {
   def normaliseText(text: String): String = {
 //    pattern is:
 //    - ^\\w : not a word
