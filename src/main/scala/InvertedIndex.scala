@@ -5,7 +5,7 @@ import org.information_retrieval.boolean_retrieval.tokenize
 
 class  InvertedIndex {
   var dictionary: SortedSet[Term] = SortedSet.empty
-  def apply(token: String): Option[Term] = dictionary.find(_.term == token)
+  def get(token: String): Option[Term] = dictionary.find(_.term == token)
 
   override def toString: String = s"Dictionary with ${dictionary.size} terms"
 }
