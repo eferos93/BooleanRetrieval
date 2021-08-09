@@ -1,13 +1,13 @@
 package org.information_retrieval.boolean_retrieval
 
 class IRSystem(corpus: LazyList[Movie], invertedIndex: InvertedIndex) {
-//  def answerQuery(words: Seq[String]): Seq[Int] = {
-////    words.map((invertedIndex.get compose normaliseText)(_))
-////      .withFilter(_.isDefined)
-////      .reduce()
-//
-//
-//  }
+  def answerQuery(words: Array[String]): Array[Movie] = {
+    words.map(invertedIndex.get compose normaliseText)
+      .withFilter(_.isDefined)
+      .map(_.get.postingList)
+      .reduce((firstPostingList, secondPostingList) => firstPostingList.intersection(secondPostingList))
+      .getFromCorpus(corpus)
+  }
 }
 
 object IRSystem {

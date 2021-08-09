@@ -12,8 +12,8 @@ class PostingList {
   }
   def intersection(otherPostingList: PostingList): PostingList = PostingList(postings.intersect(otherPostingList.postings))
   def union(otherPostingList: PostingList): PostingList = PostingList(postings.concat(otherPostingList.postings).distinct)
-  def getFromCorpus(corpus: LazyList[Movie]): List[Movie] = {
-    postings.toList.collect {
+  def getFromCorpus(corpus: LazyList[Movie]): Array[Movie] = {
+    postings.collect {
       _.get_from_corpus(corpus) match
         case Some(movie) => movie
     }

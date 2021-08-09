@@ -44,4 +44,8 @@ package object boolean_retrieval {
       .map(description => Movie(namesTable.get(description(0)).get, description(1)))
       .to(LazyList)
   }
+  
+  def query(irSystem: IRSystem, text: String): Unit = {
+    irSystem.answerQuery(text.split(" ")).foreach(println(_))
+  }
 }
