@@ -1,7 +1,6 @@
 package org.information_retrieval.boolean_retrieval
 
-import scala.collection.SortedSet
-import scala.collection.immutable.ListSet
+import scala.collection.mutable.SortedSet
 
 class PostingList {
   var postings: SortedSet[Posting] = SortedSet.empty
