@@ -19,7 +19,7 @@ object InvertedIndex {
       tokenize(document._1).foreach { token =>
         intermidiateDictionary.get(token) match {
           case Some(term) => term.merge(Term(token, document._2))
-          case None => intermidiateDictionary += (token -> Term(token, document._2))
+          case None => intermidiateDictionary = intermidiateDictionary + (token -> Term(token, document._2))
         }
       }
       if document._2 % 1000 == 0 then println(document._2)

@@ -15,4 +15,6 @@ case class Term(term: String, documentId: Int) extends Ordered[Term] {
   }
 
   override def compare(that: Term): Int = term compare that.term
+
+  override def toString: String = postingList.toString
 }
