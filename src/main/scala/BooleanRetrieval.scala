@@ -27,4 +27,5 @@ object BooleanRetrieval extends App {
   val corpus: LazyList[Movie] = time { read_movie_descrition() }
   val invertedIndex: InvertedIndex = time { InvertedIndex(corpus) }
   println(invertedIndex.toString)
+  println(invertedIndex("batman"))
 }
