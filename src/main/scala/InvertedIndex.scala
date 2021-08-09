@@ -1,9 +1,7 @@
 package org.information_retrieval.boolean_retrieval
 
 import scala.collection.mutable.SortedSet
-import scala.util.matching.Regex
 import org.information_retrieval.boolean_retrieval.tokenize
-import scala.collection.parallel.CollectionConverters._
 
 class  InvertedIndex {
   var dictionary: SortedSet[Term] = SortedSet.empty
@@ -22,7 +20,6 @@ object InvertedIndex {
           case None => intermidiateDictionary = intermidiateDictionary + (token -> Term(token, document._2))
         }
       }
-      if document._2 % 1000 == 0 then println(document._2)
     }
     val invertedIndex: InvertedIndex = new InvertedIndex
     invertedIndex.dictionary = intermidiateDictionary.values.to(SortedSet)
