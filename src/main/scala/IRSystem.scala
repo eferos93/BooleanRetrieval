@@ -1,6 +1,5 @@
 package org.information_retrieval.boolean_retrieval
 class IRSystem(corpus: LazyList[Movie], invertedIndex: InvertedIndex) {
-  import org.information_retrieval.boolean_retrieval.{ findNearestWord, editDistance }
   def answerQuery(words: Array[String]): Array[Movie] = {
     words.map(invertedIndex.get compose normaliseText)
       .collect { case Some(term) => term.postingList }
