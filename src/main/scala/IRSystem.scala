@@ -13,7 +13,7 @@ class IRSystem(corpus: LazyList[Movie], invertedIndex: InvertedIndex) {
       invertedIndex.get(normaliseText(word)) match {
         case Some(term) => term.postingList
         case None =>
-          val substitute = findNearestWord(word, editDistance, invertedIndex.dictionary.map(_.term), true)
+          val substitute = findNearestWord(word, editDistanceFunctional, invertedIndex.dictionary.map(_.term), true)
           println(s"${word} not found. You probably meant ${substitute._2}")
           invertedIndex.get(substitute._2).get.postingList
       }

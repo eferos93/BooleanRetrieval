@@ -2,6 +2,7 @@ package org.information_retrieval
 
 import scala.collection.{IterableOps, SortedSet, WithFilter}
 import scala.io.Source
+import scala.math.min
 
 
 package object boolean_retrieval {
@@ -59,10 +60,10 @@ package object boolean_retrieval {
     val numberOfRows = word.length + 1
     val numberOfCols = otherWord.length + 1
     var matrix: Array[Array[Int]] = Array.fill(numberOfRows, numberOfCols)(0)
-    (0 to numberOfRows).foreach(index => matrix(index)(0) = index)
-    (0 to numberOfCols).foreach(index => matrix(0)(index) = index)
-    (1 to numberOfRows).foreach { rowIndex =>
-      (1 to numberOfCols).foreach { columnIndex =>
+    (0 to numberOfRows - 1).foreach(index => matrix(index)(0) = index)
+    (0 to numberOfCols - 1).foreach(index => matrix(0)(index) = index)
+    (1 to numberOfRows - 1).foreach { rowIndex =>
+      (1 to numberOfCols - 1).foreach { columnIndex =>
         var candidates = List(matrix(rowIndex - 1)(columnIndex) + 1, matrix(rowIndex)(columnIndex-1) + 1)
         if word.charAt(rowIndex - 1) == otherWord.charAt(columnIndex - 1) then
           candidates = matrix(rowIndex - 1)(columnIndex - 1) +: candidates
@@ -74,6 +75,16 @@ package object boolean_retrieval {
     }
     matrix.last.last
   }
+
+//  way more efficient than iterative solution
+  def editDistanceFunctional[A](word: Iterable[A], otherWord: Iterable[A]) = {
+    word.foldLeft((0 to otherWord.size).toList) { (previous, char) =>
+      (previous zip previous.tail zip otherWord).scanLeft(previous.head + 1) {
+        case (h, ((d, v), y)) => min(min(h + 1, v + 1), d + (if (char == y) 0 else 1))
+      }
+    }.last
+  }
+
 
   def findNearestWord[T: Numeric](word: String, distance: (String, String) => T,
                       dictionary: SortedSet[String], keepFirst: Boolean = false): (T, String) = {
