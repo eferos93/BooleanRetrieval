@@ -79,8 +79,8 @@ package object boolean_retrieval {
 //  way more efficient than iterative solution
   def editDistanceFunctional[A](word: Iterable[A], otherWord: Iterable[A]): Int = {
     word.foldLeft((0 to otherWord.size).toList) { (previous, char) =>
-      (previous.zip(previous.tail).zip(otherWord)).scanLeft(previous.head + 1) {
-        case (h, ((d, v), y)) => min(min(h + 1, v + 1), d + (if (char == y) 0 else 1))
+      (previous zip previous.tail zip otherWord).scanLeft(previous.head + 1) {
+        case (h, ((d, v), otherChar)) => min(min(h + 1, v + 1), d + (if (char == otherChar) 0 else 1))
       }
     }.last
   }
