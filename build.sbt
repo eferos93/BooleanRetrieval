@@ -5,8 +5,7 @@ version := "0.1"
 scalaVersion := "3.0.1"
 
 idePackagePrefix := Some("org.information_retrieval.boolean_retrieval")
-libraryDependencies +=
-  "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.3"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % Test
 
 //lazy val downloadFromZip = taskKey[Unit]("Download data and extract it")
 //downloadFromZip := {
