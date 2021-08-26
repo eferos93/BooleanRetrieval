@@ -14,13 +14,9 @@ package object vector_space_model {
 //    Source.fromFile(dataSetPath)
 //      .getLines()
 //      .withFilter(!_.isEmpty)
-////      .mkString("\n")
-////      .split("^\\*TEXT*$")
-////      .map(articleText => normaliseText(articleText).split(" "))
-////      .foreach { row =>
-////        if row.startsWith("*TEXT") then
-////
-////      }
+//      .mkString(System.lineSeparator())
+//      .split("^\\*TEXT.?$")
+//      .map(articleText => normaliseText(articleText).split(" "))
 //  }
 
 //TODO: make it functional style
@@ -37,7 +33,7 @@ package object vector_space_model {
               articles = articles :+ temp
               temp = Array.empty
           case false =>
-            temp = temp :++ normaliseText(row).split(" ")
+            temp = temp :++ normaliseText(row).split(" ").filterNot(_.isEmpty)
         }
       }
     articles
