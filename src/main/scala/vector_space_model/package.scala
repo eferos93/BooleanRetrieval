@@ -1,6 +1,7 @@
 package org.information_retrieval.boolean_retrieval
 
 import scala.io.Source
+import scala.collection.mutable.Map
 
 package object vector_space_model {
   val normaliseText: String => String = { text =>
@@ -37,5 +38,34 @@ package object vector_space_model {
         }
       }
     articles
+  }
+//TODO:
+  def makePositionalIndex(articles: Array[Array[String]]) = {
+    var index: Map[String, Map[Int, Array[Int]]] = Map.empty
+
+    for (
+      documentId <- 0 until articles.length;
+      termPosition <- 0 until articles(documentId).length
+    ) {
+      val term = articles(documentId)(termPosition)
+      index.get(term) match {
+        case Some(termPositions) =>
+          termPositions.get(documentId) match {
+            case Some(positions) => positions = positions :+ termPosition
+            case None =>
+          }
+      }
+    }
+
+
+//    articles.zipWithIndex.foreach { (article) =>
+//      for (i <- 0 until article._1.length) {
+//        index.get(article._1(i)) match {
+//          case Some(termPositions) => termPositions.get(article._2)
+//          case None =>
+//        }
+//      }
+//
+//    }
   }
 }
