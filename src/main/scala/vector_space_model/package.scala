@@ -4,6 +4,9 @@ import scala.io.Source
 import scala.collection.mutable.Map
 
 package object vector_space_model {
+  type DocumentId = Int
+  type TermPosition = Int
+
   val normaliseText: String => String = { text =>
     //    replace everything that is not a letter or a space with empty string
     text.replaceAll("[^a-zA-Z\\s]", "")
@@ -21,7 +24,7 @@ package object vector_space_model {
 //  }
 
 //TODO: make it functional style
-  def importDataSet() = {
+  def importDataSet(): Array[(String, DocumentId, TermPosition)] = {
     var articles: Array[Array[String]] = Array.empty
     var temp: Array[String] = Array.empty
     Source.fromFile("time/TIME.ALL")
@@ -37,35 +40,16 @@ package object vector_space_model {
             temp = temp :++ normaliseText(row).split(" ").filterNot(_.isEmpty)
         }
       }
-    articles
-  }
-//TODO:
-  def makePositionalIndex(articles: Array[Array[String]]) = {
-    var index: Map[String, Map[Int, Array[Int]]] = Map.empty
-
-    for (
-      documentId <- 0 until articles.length;
-      termPosition <- 0 until articles(documentId).length
-    ) {
-      val term = articles(documentId)(termPosition)
-      index.get(term) match {
-        case Some(termPositions) =>
-          termPositions.get(documentId) match {
-            case Some(positions) => positions = positions :+ termPosition
-            case None =>
-          }
+    articles.
+      zipWithIndex
+      .flatMap { article =>
+        article._1.zipWithIndex.map { case (term, termPosition) => (term, article._2, termPosition)}
       }
-    }
+  }
 
-
-//    articles.zipWithIndex.foreach { (article) =>
-//      for (i <- 0 until article._1.length) {
-//        index.get(article._1(i)) match {
-//          case Some(termPositions) => termPositions.get(article._2)
-//          case None =>
-//        }
-//      }
-//
-//    }
+  def makePositionalIndex(articles: Array[(String, DocumentId, TermPosition)]) = {
+    articles
+      .groupMap(_._1){ case (term, documentId, termPosition) => (documentId, termPosition)}
+      .map { term => (term._1 -> term._2.groupMap(_._1)(_._2))}
   }
 }
