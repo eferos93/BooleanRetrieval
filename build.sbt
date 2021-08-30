@@ -16,6 +16,7 @@ libraryDependencies  ++= Seq(
 )
 
 libraryDependencies += "com.lihaoyi" %% "upickle" % "1.4.0"
+libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.7.8"
 //lazy val downloadFromZip = taskKey[Unit]("Download data and extract it")
 //downloadFromZip := {
 //  if (java.nio.file.Files.notExists(new File("data").toPath)) {
