@@ -1,5 +1,6 @@
 package org.information_retrieval.boolean_retrieval
 
+import scala.collection.SortedMap
 import scala.io.Source
 import scala.collection.mutable.Map
 
@@ -50,6 +51,6 @@ package object vector_space_model {
   def makePositionalIndex(articles: Array[(String, DocumentId, TermPosition)]) = {
     articles
       .groupMap(_._1){ case (term, documentId, termPosition) => (documentId, termPosition)}
-      .map { term => (term._1 -> term._2.groupMap(_._1)(_._2))}
+      .map { term => (term._1 -> term._2.groupMap(_._1)(_._2).to(SortedMap))}
   }
 }
