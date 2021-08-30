@@ -6,6 +6,14 @@ scalaVersion := "3.0.1"
 
 idePackagePrefix := Some("org.information_retrieval.boolean_retrieval")
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % Test
+libraryDependencies  ++= Seq(
+  // Last stable release
+  "org.scalanlp" %% "breeze" % "2.0-RC3",
+
+  // The visualization library is distributed separately as well.
+  // It depends on LGPL code
+  "org.scalanlp" %% "breeze-viz" % "2.0-RC3"
+)
 
 //lazy val downloadFromZip = taskKey[Unit]("Download data and extract it")
 //downloadFromZip := {
