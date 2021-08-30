@@ -1,2 +1,2 @@
 # BooleanRetrieval
-A simple boolean retreival system written in Scala
+A simple boolean retrieval system written in Scala
