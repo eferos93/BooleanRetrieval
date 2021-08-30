@@ -15,6 +15,7 @@ libraryDependencies  ++= Seq(
   "org.scalanlp" %% "breeze-viz" % "2.0-RC3"
 )
 
+libraryDependencies += "com.lihaoyi" %% "upickle" % "1.4.0"
 //lazy val downloadFromZip = taskKey[Unit]("Download data and extract it")
 //downloadFromZip := {
 //  if (java.nio.file.Files.notExists(new File("data").toPath)) {
